@@ -3,416 +3,236 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Freebuff — réplique mobile (Code / Chat)</title>
+<meta name="theme-color" content="#000000" />
+<title>Freebuff</title>
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-<!-- ============ SPRITE D'ICÔNES (tracées à la main) ============ -->
+<!-- ======================= ICÔNES (SVG écrites à la main) ======================= -->
 <svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
-  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3.6 10.6 12 3.7l8.4 6.9V20a1 1 0 0 1-1 1h-4.2v-5.7H8.8V21H4.6a1 1 0 0 1-1-1Z"/></symbol>
-  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3.4" y="3.4" width="7.2" height="7.2" rx="1.8"/><rect x="13.4" y="3.4" width="7.2" height="7.2" rx="1.8"/><rect x="3.4" y="13.4" width="7.2" height="7.2" rx="1.8"/><rect x="13.4" y="13.4" width="7.2" height="7.2" rx="1.8"/></symbol>
-  <symbol id="i-layout" viewBox="0 0 24 24"><rect x="3.1" y="4.3" width="17.8" height="15.4" rx="2.4"/><path d="M3.1 9.5h17.8M9.4 9.5v10.2"/></symbol>
-  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.5 13.7a7.9 7.9 0 0 0 0-3.4l2-1.5-2-3.4-2.3.9a7.8 7.8 0 0 0-2.8-1.6L14 2.6h-4l-.4 2.1a7.8 7.8 0 0 0-2.8 1.6l-2.3-.9-2 3.4 2 1.5a7.9 7.9 0 0 0 0 3.4l-2 1.5 2 3.4 2.3-.9a7.8 7.8 0 0 0 2.8 1.6l.4 2.1h4l.4-2.1a7.8 7.8 0 0 0 2.8-1.6l2.3.9 2-3.4Z"/></symbol>
-  <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3.3" y="8.6" width="17.4" height="11.1" rx="1.9"/><path d="M3.3 12.4h17.4M12 8.6v11.1"/><path d="M12 8.6C10.2 8.6 7.9 7.9 7.9 6.2A2.15 2.15 0 0 1 12 5.3a2.15 2.15 0 0 1 4.1.9c0 1.7-2.3 2.4-4.1 2.4Z"/></symbol>
-  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6"/><path d="M9.8 9.6a2.2 2.2 0 1 1 3.2 2c-.7.4-1 .9-1 1.7"/><path d="M12 16.5v.01" stroke-width="2.2"/></symbol>
-  <symbol id="i-code-pane" viewBox="0 0 24 24"><rect x="3.2" y="3.9" width="17.6" height="16.2" rx="3.2"/><path d="m9.4 9.3-2.6 2.7 2.6 2.7"/></symbol>
-  <symbol id="i-list" viewBox="0 0 24 24"><path d="M8.6 6.6h11.2M8.6 12h11.2M8.6 17.4h11.2"/><path d="M4.4 6.6v.01M4.4 12v.01M4.4 17.4v.01" stroke-width="2.2"/></symbol>
-  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3.4" y="4.7" width="17.2" height="14.6" rx="2.6"/><circle cx="8.7" cy="9.9" r="1.5"/><path d="m4.2 17.8 5.5-5.2 3.3 3 2.7-2.3 4 3.6"/></symbol>
-  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3.6 7.3a2 2 0 0 1 2-2h3.3l2.1 2.4h7.4a2 2 0 0 1 2 2v7.7a2 2 0 0 1-2 2H5.6a2 2 0 0 1-2-2Z"/></symbol>
-  <symbol id="i-sidebar" viewBox="0 0 24 24"><rect x="3.2" y="4.4" width="17.6" height="15.2" rx="2.4"/><path d="M14.6 4.4v15.2"/></symbol>
-  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><path d="M12 11.1v5.2"/><path d="M12 7.9v.01" stroke-width="2.2"/></symbol>
-  <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M4.2 19.8h3.5L19 8.4a2 2 0 0 0 0-2.8l-.6-.6a2 2 0 0 0-2.8 0L4.2 16.3Z"/></symbol>
-  <symbol id="i-undo" viewBox="0 0 24 24"><path d="M8.7 5.4 4.4 9.7l4.3 4.3"/><path d="M4.4 9.7h9.6a5.3 5.3 0 0 1 0 10.6H9.1"/></symbol>
-  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8.9" y="8.9" width="11" height="11" rx="2.3"/><path d="M15.4 6.4V5.3A1.4 1.4 0 0 0 14 3.9H5.3A1.4 1.4 0 0 0 3.9 5.3V14a1.4 1.4 0 0 0 1.4 1.4h1.1"/></symbol>
-  <symbol id="i-chev-r" viewBox="0 0 24 24"><path d="m9.6 5.9 6.1 6.1-6.1 6.1"/></symbol>
-  <symbol id="i-chev-d" viewBox="0 0 24 24"><path d="m5.8 9.3 6.2 6.2 6.2-6.2"/></symbol>
-  <symbol id="i-chev-u" viewBox="0 0 24 24"><path d="m5.8 14.7 6.2-6.2 6.2 6.2"/></symbol>
-  <symbol id="i-bubble" viewBox="0 0 24 24"><path d="M20.3 12.2c0 3.6-3.7 6.6-8.3 6.6-1 0-1.9-.1-2.8-.4L4.7 20l1-3.2c-1-1.2-1.7-2.8-1.7-4.6C4 8.6 7.7 5.6 12 5.6s8.3 3 8.3 6.6Z"/></symbol>
-  <symbol id="i-thumb" viewBox="0 0 24 24"><path d="M7.2 10.4 11.2 3.8c1.4 0 2.2 1 2.2 2.4l-.6 3.2h4.9a2.05 2.05 0 0 1 2 2.4l-1.2 5.6a2.05 2.05 0 0 1-2 1.6H7.2Z"/><path d="M7.2 10.4v9.2"/></symbol>
-  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 4.7v14.6M4.7 12h14.6"/></symbol>
-  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9.2" y="3.3" width="5.6" height="10.3" rx="2.8"/><path d="M6.4 11.3a5.6 5.6 0 0 0 11.2 0M12 16.9v3.4"/></symbol>
-  <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19.4V5.3M6.1 11.3 12 5.3l5.9 6"/></symbol>
-  <symbol id="i-x" viewBox="0 0 24 24"><path d="m6.4 6.4 11.2 11.2M17.6 6.4 6.4 17.6"/></symbol>
-  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.9" cy="10.9" r="6.5"/><path d="m15.7 15.7 4.6 4.6"/></symbol>
-  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3.6 2.65 5.37 5.93.86-4.29 4.18 1.01 5.9L12 17.13l-5.3 2.78 1.01-5.9L3.42 9.83l5.93-.86Z"/></symbol>
-  <symbol id="i-tabcount" viewBox="0 0 24 24"><rect x="3.6" y="4.2" width="16.8" height="15.6" rx="3.4"/></symbol>
-  <symbol id="i-kebab" viewBox="0 0 24 24"><path d="M12 5.6v.01M12 12v.01M12 18.4v.01" stroke-width="2.6"/></symbol>
-  <symbol id="i-newchat" viewBox="0 0 24 24"><path d="M20.4 12.6v5.9a2 2 0 0 1-2 2H5.6a2 2 0 0 1-2-2V5.6a2 2 0 0 1 2-2h5.9"/><path d="M17.8 3.7a1.9 1.9 0 0 1 2.7 2.7l-7.2 7.2-3.4.7.7-3.4Z"/></symbol>
-  <symbol id="i-newproj" viewBox="0 0 24 24"><path d="M3.6 7.3a2 2 0 0 1 2-2h3.3l2.1 2.4h7.4a2 2 0 0 1 2 2v7.7a2 2 0 0 1-2 2H5.6a2 2 0 0 1-2-2Z"/><path d="M12 11.6v5M9.5 14.1h5"/></symbol>
-  <symbol id="i-hourglass" viewBox="0 0 24 24"><path d="M6.9 3.6h10.2M6.9 20.4h10.2"/><path d="M8.1 3.6v3c0 1.9 3.9 2.8 3.9 5.4s-3.9 3.5-3.9 5.4v3M15.9 3.6v3c0 1.9-3.9 2.8-3.9 5.4s3.9 3.5 3.9 5.4v3"/></symbol>
-  <symbol id="i-trend" viewBox="0 0 24 24"><path d="M12 19V6.4M7.1 11.3 12 6.4l4.9 4.9"/></symbol>
-  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4.4 6.7h15.2M9 6.7V4.4h6v2.3"/><path d="m6.6 6.7.9 12.3a1.7 1.7 0 0 0 1.7 1.6h5.6a1.7 1.7 0 0 0 1.7-1.6l.9-12.3"/></symbol>
-  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6"/><path d="M12 7.2V12l3.2 2"/></symbol>
-  <symbol id="i-dots" viewBox="0 0 24 24"><path d="M6 12v.01M12 12v.01M18 12v.01" stroke-width="2.6"/></symbol>
-  <symbol id="i-folder-plus" viewBox="0 0 24 24"><path d="M3.6 7.3a2 2 0 0 1 2-2h3.3l2.1 2.4h7.4a2 2 0 0 1 2 2v7.7a2 2 0 0 1-2 2H5.6a2 2 0 0 1-2-2Z"/><path d="M12 11.9v4.6M9.7 14.2h4.6"/></symbol>
-  <symbol id="i-terminal" viewBox="0 0 24 24"><rect x="3.3" y="4.4" width="17.4" height="15.2" rx="2.4"/><path d="m7.3 9.2 2.6 2.6-2.6 2.6M12.7 14.9h4.2"/></symbol>
-  <symbol id="i-signal" viewBox="0 0 24 24"><path d="M4 18.2v-4.4M9.3 18.2v-7.6M14.7 18.2v-10.8M20 18.2V4.9" stroke-width="2.6"/></symbol>
-  <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M4.1 9.4a12 12 0 0 1 15.8 0M7.1 12.7a7.6 7.6 0 0 1 9.8 0M10.1 16a3.1 3.1 0 0 1 3.8 0"/><path d="M12 18.9v.01" stroke-width="2.4"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3.7 10.7 12 4l8.3 6.7V19a1.6 1.6 0 0 1-1.6 1.6h-3.6v-5.4H8.9v5.4H5.3A1.6 1.6 0 0 1 3.7 19Z"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3.6" y="3.6" width="7" height="7" rx="1.9"/><rect x="13.4" y="3.6" width="7" height="7" rx="1.9"/><rect x="3.6" y="13.4" width="7" height="7" rx="1.9"/><rect x="13.4" y="13.4" width="7" height="7" rx="1.9"/></symbol>
+  <symbol id="i-layout" viewBox="0 0 24 24"><rect x="3.4" y="4.4" width="7.2" height="15.2" rx="2"/><rect x="13.4" y="4.4" width="7.2" height="6.6" rx="2"/><rect x="13.4" y="13.6" width="7.2" height="6" rx="2"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.1"/><path d="M19.4 13.9a7.9 7.9 0 0 0 0-3.8l2-1.4-2-3.5-2.3.9a7.8 7.8 0 0 0-2.9-1.7L13.8 2.3h-3.6l-.4 2.1a7.8 7.8 0 0 0-2.9 1.7l-2.3-.9-2 3.5 2 1.4a7.9 7.9 0 0 0 0 3.8l-2 1.4 2 3.5 2.3-.9a7.8 7.8 0 0 0 2.9 1.7l.4 2.1h3.6l.4-2.1a7.8 7.8 0 0 0 2.9-1.7l2.3.9 2-3.5Z"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3.2" y="8.8" width="17.6" height="11" rx="2"/><path d="M3.2 12.6h17.6M12 8.8v11"/><path d="M12 8.8c-1.9 0-4.2-.8-4.2-2.5A2.2 2.2 0 0 1 12 5.5a2.2 2.2 0 0 1 4.2.8c0 1.7-2.3 2.5-4.2 2.5Z"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.7"/><path d="M9.7 9.6a2.3 2.3 0 1 1 3.4 2c-.7.4-1.1 1-1.1 1.8"/><path d="M12 16.7v.01" stroke-width="2.3"/></symbol>
+  <symbol id="i-code-pane" viewBox="0 0 24 24"><rect x="3.2" y="4" width="17.6" height="16" rx="3.4"/><path d="m9.6 9.4-2.5 2.6 2.5 2.6"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M8.7 6.7h11M8.7 12h11M8.7 17.3h11"/><path d="M4.5 6.7v.01M4.5 12v.01M4.5 17.3v.01" stroke-width="2.3"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3.4" y="4.8" width="17.2" height="14.4" rx="2.8"/><circle cx="8.6" cy="9.9" r="1.5"/><path d="m4.2 17.9 5.5-5.2 3.3 3 2.7-2.2 4 3.5"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3.6 7.4a2.1 2.1 0 0 1 2.1-2.1h3.2l2.1 2.4h7.5a2.1 2.1 0 0 1 2.1 2.1v7.5a2.1 2.1 0 0 1-2.1 2.1H5.7a2.1 2.1 0 0 1-2.1-2.1Z"/></symbol>
+  <symbol id="i-sidebar" viewBox="0 0 24 24"><rect x="3.2" y="4.5" width="17.6" height="15" rx="2.6"/><path d="M14.7 4.5v15"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 11.2v5.3"/><path d="M12 7.9v.01" stroke-width="2.3"/></symbol>
+  <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M4.3 19.7h3.4L19 8.4a2 2 0 0 0 0-2.8l-.6-.6a2 2 0 0 0-2.8 0L4.3 16.3Z"/></symbol>
+  <symbol id="i-undo" viewBox="0 0 24 24"><path d="M8.8 5.6 4.5 9.9l4.3 4.3"/><path d="M4.5 9.9h9.7a5.3 5.3 0 0 1 0 10.6H9.2"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8.9" y="8.9" width="11" height="11" rx="2.4"/><path d="M15.5 6.5V5.4A1.5 1.5 0 0 0 14 3.9H5.4A1.5 1.5 0 0 0 3.9 5.4V14a1.5 1.5 0 0 0 1.5 1.5h1.1"/></symbol>
+  <symbol id="i-chev-r" viewBox="0 0 24 24"><path d="m9.7 5.9 6 6.1-6 6.1"/></symbol>
+  <symbol id="i-chev-d" viewBox="0 0 24 24"><path d="m5.9 9.4 6.1 6.1 6.1-6.1"/></symbol>
+  <symbol id="i-chev-u" viewBox="0 0 24 24"><path d="m5.9 14.6 6.1-6.1 6.1 6.1"/></symbol>
+  <symbol id="i-bubble" viewBox="0 0 24 24"><path d="M20.4 12.3c0 3.6-3.8 6.6-8.4 6.6-1 0-1.9-.2-2.8-.4L4.6 20l1-3.2c-1-1.2-1.7-2.8-1.7-4.5C3.9 8.7 7.6 5.7 12 5.7s8.4 3 8.4 6.6Z"/></symbol>
+  <symbol id="i-thumb" viewBox="0 0 24 24"><path d="M7.3 10.5 11.3 4c1.4 0 2.2 1 2.2 2.4l-.6 3.1h4.9a2.05 2.05 0 0 1 2 2.4l-1.2 5.5a2.05 2.05 0 0 1-2 1.6H7.3Z"/><path d="M7.3 10.5v9.1"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 4.8v14.4M4.8 12h14.4"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9.3" y="3.4" width="5.4" height="10.2" rx="2.7"/><path d="M6.5 11.3a5.5 5.5 0 0 0 11 0M12 16.8V20"/></symbol>
+  <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19.3V5.4M6.2 11.2 12 5.4l5.8 5.8"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="m6.5 6.5 11 11M17.5 6.5l-11 11"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.9" cy="10.9" r="6.6"/><path d="m15.8 15.8 4.5 4.5"/></symbol>
+  <symbol id="i-newchat" viewBox="0 0 24 24"><path d="M20.3 12.7v5.7a2.1 2.1 0 0 1-2.1 2.1H5.8a2.1 2.1 0 0 1-2.1-2.1V5.8a2.1 2.1 0 0 1 2.1-2.1h5.7"/><path d="M17.9 3.8a1.9 1.9 0 0 1 2.7 2.7l-7.1 7.1-3.5.8.8-3.5Z"/></symbol>
+  <symbol id="i-newproj" viewBox="0 0 24 24"><path d="M3.6 7.4a2.1 2.1 0 0 1 2.1-2.1h3.2l2.1 2.4h7.5a2.1 2.1 0 0 1 2.1 2.1v7.5a2.1 2.1 0 0 1-2.1 2.1H5.7a2.1 2.1 0 0 1-2.1-2.1Z"/><path d="M12 11.7v5M9.5 14.2h5"/></symbol>
+  <symbol id="i-hourglass" viewBox="0 0 24 24"><path d="M7 3.7h10M7 20.3h10"/><path d="M8.2 3.7v3c0 1.9 3.8 2.8 3.8 5.3s-3.8 3.4-3.8 5.3v3M15.8 3.7v3c0 1.9-3.8 2.8-3.8 5.3s3.8 3.4 3.8 5.3v3"/></symbol>
+  <symbol id="i-trend" viewBox="0 0 24 24"><path d="M12 19.2V6.4M7.1 11.3 12 6.4l4.9 4.9"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4.5 6.8h15M9.1 6.8V4.5h5.8v2.3"/><path d="m6.7 6.8.9 12.2a1.7 1.7 0 0 0 1.7 1.6h5.4a1.7 1.7 0 0 0 1.7-1.6l.9-12.2"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6"/><path d="M12 7.3V12l3.1 1.9"/></symbol>
+  <symbol id="i-dots" viewBox="0 0 24 24"><path d="M6.2 12v.01M12 12v.01M17.8 12v.01" stroke-width="2.6"/></symbol>
+  <symbol id="i-terminal" viewBox="0 0 24 24"><rect x="3.3" y="4.5" width="17.4" height="15" rx="2.6"/><path d="m7.4 9.3 2.6 2.6-2.6 2.6M12.8 14.9h4.2"/></symbol>
 </svg>
 
-<main class="stage">
+<!-- ======================= APPLICATION ======================= -->
+<div class="app">
 
-  <!-- ================= ÉCRAN 1 — CHAT ================= -->
-  <figure class="frame">
-    <div class="phone">
-      <div class="statusbar">
-        <span class="clock">06:22</span>
-        <span class="status-right">
-          <svg class="i st"><use href="#i-signal"/></svg>
-          <svg class="i st wifi"><use href="#i-wifi"/></svg>
-          <span class="batt"><span class="batt-fill"></span></span>
-          <span class="pct">51</span>
-        </span>
-      </div>
-
-      <div class="chrome">
-        <svg class="i chrome-ic"><use href="#i-home"/></svg>
-        <div class="omni"><span>freebuff.com/?thread=d5f37764-c</span></div>
-        <svg class="i chrome-ic"><use href="#i-star"/></svg>
-        <span class="tabcount">
-          <svg class="i"><use href="#i-tabcount"/></svg>
-          <b>1</b>
-        </span>
-        <svg class="i chrome-ic"><use href="#i-kebab"/></svg>
-      </div>
-
-      <div class="app">
-        <div class="apphead">
-          <div class="seg">
-            <span class="on">Code</span>
-            <span>Chat</span>
-          </div>
-          <div class="tabstrip">
-            <div class="tab on">
-              <span class="tlabel">Corriger crash RAM et le</span>
-              <svg class="i x"><use href="#i-x"/></svg>
-            </div>
-            <button class="tabnew" aria-label="Nouvel onglet"><svg class="i"><use href="#i-plus"/></svg></button>
-          </div>
-        </div>
-
-        <div class="body">
-          <nav class="rail">
-            <a class="railbtn act" href="#"><svg class="i"><use href="#i-home"/></svg></a>
-            <a class="railbtn" href="#"><svg class="i"><use href="#i-grid"/></svg></a>
-            <a class="railbtn" href="#"><svg class="i"><use href="#i-layout"/></svg></a>
-            <a class="railbtn" href="#"><svg class="i"><use href="#i-gear"/></svg></a>
-            <a class="railbtn" href="#"><svg class="i"><use href="#i-gift"/></svg></a>
-            <div class="rail-bottom">
-              <a class="railbtn sm" href="#"><svg class="i"><use href="#i-help"/></svg></a>
-              <span class="avatar">A</span>
-            </div>
-          </nav>
-
-          <section class="pane">
-            <div class="scroll">
-              <div class="card notice">
-                <div class="notice-head">
-                  <svg class="i"><use href="#i-code-pane"/></svg>
-                  <div class="notice-tools">
-                    <svg class="i"><use href="#i-list"/></svg>
-                    <svg class="i"><use href="#i-image"/></svg>
-                    <svg class="i"><use href="#i-folder"/></svg>
-                    <svg class="i"><use href="#i-sidebar"/></svg>
-                  </div>
-                </div>
-                <div class="notice-body">
-                  <svg class="i info"><use href="#i-info"/></svg>
-                  <p>Cloud runner restarted. Completed steps are saved; send a message to continue.</p>
-                </div>
-              </div>
-
-              <div class="date">dim. 8 nov. at 19:09</div>
-
-              <div class="bubble">
-                <p>Clone ferelking242/watchtower ensuite tu va fix lapp bug crash calll ram nest pas rapide ni optimise cest une vrai merde trouve la cause profonde tout lapp est dunne lwntwur et calle tro soit cest trop de get mal fait reflechi a tout ca et au paralelisme et push sur mian pas de pr avec ce pat ghp_•••••••••••••••••••••••</p>
-                <div class="row-actions">
-                  <svg class="i"><use href="#i-pencil"/></svg>
-                  <svg class="i"><use href="#i-undo"/></svg>
-                  <svg class="i"><use href="#i-copy"/></svg>
-                </div>
-              </div>
-
-              <div class="worked">Worked for 15m 44s <svg class="i"><use href="#i-chev-r"/></svg></div>
-
-              <p class="assistant">Je commence par provisionner l'environnement de travail, puis je clone le dépôt pour inspecter le code.</p>
-
-              <div class="card error">
-                <svg class="i info"><use href="#i-info"/></svg>
-                <p>Cloud run stopped on an unexpected error. Completed steps are saved; send a message to try again.</p>
-                <button class="retry">Retry</button>
-              </div>
-
-              <div class="feedback">
-                <svg class="i"><use href="#i-bubble"/></svg>
-                <svg class="i"><use href="#i-thumb"/></svg>
-                <svg class="i down"><use href="#i-thumb"/></svg>
-                <svg class="i"><use href="#i-copy"/></svg>
-              </div>
-            </div>
-
-            <div class="composer-wrap">
-              <div class="composer">
-                <div class="placeholder">Ask Freebuff... Use / for commands, @ for files</div>
-                <div class="modes">
-                  <span class="on">Build</span><span>Plan</span><span>Mission</span><span>Skills</span>
-                </div>
-                <div class="composer-bar">
-                  <button class="ghost" aria-label="Ajouter"><svg class="i"><use href="#i-plus"/></svg></button>
-                  <div class="model">DeepSeek V4.1 Flash&nbsp; High <svg class="i"><use href="#i-chev-d"/></svg></div>
-                  <button class="mic" aria-label="Micro"><svg class="i"><use href="#i-mic"/></svg></button>
-                  <button class="send" aria-label="Envoyer"><svg class="i"><use href="#i-arrow-up"/></svg></button>
-                </div>
-              </div>
-            </div>
-          </section>
-        </div>
-
-        <div class="dock">
-          <svg class="i dock-chev"><use href="#i-chev-u"/></svg>
-          <div class="dots">
-            <span class="dot"><svg class="i"><use href="#i-bubble"/></svg></span>
-            <span class="dot"><svg class="i"><use href="#i-bubble"/></svg></span>
-            <span class="dot act"><svg class="i"><use href="#i-bubble"/></svg><i class="badge"></i></span>
-            <span class="dot"><svg class="i"><use href="#i-bubble"/></svg></span>
-            <span class="dot"><svg class="i"><use href="#i-bubble"/></svg></span>
-            <span class="dot"><svg class="i"><use href="#i-bubble"/></svg></span>
-            <span class="dot plusdot">+</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="homebar"></div>
+  <header class="topbar">
+    <div class="seg">
+      <button class="on">Code</button>
+      <button>Chat</button>
     </div>
-    <figcaption>Chat — barre d'état Android + barre navigateur</figcaption>
-  </figure>
 
-  <!-- ================= ÉCRAN 2 — TIROIR ================= -->
-  <figure class="frame">
-    <div class="phone">
-      <div class="statusbar">
-        <span class="clock">06:22</span>
-        <span class="status-right">
-          <svg class="i st"><use href="#i-signal"/></svg>
-          <svg class="i st wifi"><use href="#i-wifi"/></svg>
-          <span class="batt"><span class="batt-fill"></span></span>
-          <span class="pct">51</span>
-        </span>
+    <div class="tabs">
+      <div class="tab on">
+        <span>Corriger crash RAM et le</span>
+        <svg class="i x"><use href="#i-x"/></svg>
       </div>
-
-      <div class="chrome">
-        <svg class="i chrome-ic"><use href="#i-home"/></svg>
-        <div class="omni"><span>freebuff.com/?thread=d5f37764-c</span></div>
-        <svg class="i chrome-ic"><use href="#i-star"/></svg>
-        <span class="tabcount"><svg class="i"><use href="#i-tabcount"/></svg><b>1</b></span>
-        <svg class="i chrome-ic"><use href="#i-kebab"/></svg>
-      </div>
-
-      <div class="app">
-        <div class="apphead">
-          <div class="seg">
-            <span class="on">Code</span>
-            <span>Chat</span>
-          </div>
-          <div class="tabstrip">
-            <div class="tab on"><span class="tlabel">Clone w</span><svg class="i x"><use href="#i-x"/></svg></div>
-            <div class="tab"><span class="tlabel">New ch</span><svg class="i x"><use href="#i-x"/></svg></div>
-            <div class="tab"><span class="tlabel">Correct</span><svg class="i x"><use href="#i-x"/></svg></div>
-            <button class="tabnew" aria-label="Nouvel onglet"><svg class="i"><use href="#i-plus"/></svg></button>
-          </div>
-        </div>
-
-        <div class="body">
-          <nav class="rail">
-            <a class="railbtn act" href="#"><svg class="i"><use href="#i-home"/></svg></a>
-            <a class="railbtn" href="#"><svg class="i"><use href="#i-grid"/></svg></a>
-            <a class="railbtn" href="#"><svg class="i"><use href="#i-layout"/></svg></a>
-            <a class="railbtn" href="#"><svg class="i"><use href="#i-gear"/></svg></a>
-            <a class="railbtn" href="#"><svg class="i"><use href="#i-gift"/></svg></a>
-            <div class="rail-bottom">
-              <a class="railbtn sm" href="#"><svg class="i"><use href="#i-help"/></svg></a>
-              <span class="avatar">A</span>
-            </div>
-          </nav>
-
-          <section class="pane">
-            <div class="scroll dim">
-              <p class="assistant">Vérifié : le workflow GitHub Actions passe au vert, la page et le CSS répondent en 200 sur l'URL Pages, et le serveur local tourne.</p>
-              <p class="assistant">Le PAT que tu as collé est maintenant exposé publiquement : révoque-le et régénère-en un.</p>
-              <p class="assistant">Je n'ai pas ouvert de navigateur pour comparer visuellement côté à côté avec ta capture.</p>
-              <div class="bubble"><p>Je tai dis de reproduire pixel perfect ta mal fait</p></div>
-            </div>
-          </section>
-
-          <div class="drawer">
-            <div class="drawer-top">
-              <span class="logo">F<span class="logo-rest">reebuff</span></span>
-              <span class="drawer-tools">
-                <svg class="i"><use href="#i-search"/></svg>
-                <svg class="i"><use href="#i-sidebar"/></svg>
-              </span>
-            </div>
-
-            <div class="drawer-list">
-              <a class="item" href="#"><svg class="i"><use href="#i-newchat"/></svg><span>New chat</span></a>
-              <a class="item" href="#"><svg class="i"><use href="#i-newproj"/></svg><span>New project</span></a>
-              <a class="item" href="#"><svg class="i"><use href="#i-hourglass"/></svg><span>Daily hours</span><em class="pill">3:00</em></a>
-              <a class="item" href="#"><svg class="i"><use href="#i-trend"/></svg><span>Get 7x usage for $8</span></a>
-
-              <div class="section-row">
-                <span>Projects</span>
-                <span class="section-tools">
-                  <svg class="i"><use href="#i-folder-plus"/></svg>
-                  <svg class="i"><use href="#i-chev-d"/></svg>
-                </span>
-              </div>
-
-              <div class="proj">
-                <div class="proj-head">
-                  <svg class="i"><use href="#i-folder"/></svg>
-                  <span>Tu Va Clone</span>
-                  <svg class="i mini"><use href="#i-dots"/></svg>
-                  <svg class="i mini"><use href="#i-newchat"/></svg>
-                </div>
-                <div class="proj-kids">
-                  <a class="kid" href="#"><svg class="i"><use href="#i-bubble"/></svg><span>New chat</span></a>
-                  <a class="kid" href="#"><svg class="i"><use href="#i-bubble"/></svg><span>Corrections lecteur W</span><svg class="i trash"><use href="#i-trash"/></svg></a>
-                  <a class="kid act" href="#"><svg class="i"><use href="#i-bubble"/></svg><span>Clone vocali tu</span><i class="live"></i><svg class="i trash"><use href="#i-trash"/></svg></a>
-                  <a class="kid" href="#"><svg class="i"><use href="#i-bubble"/></svg><span>Optimisation De Watc</span><svg class="i trash"><use href="#i-trash"/></svg></a>
-                  <a class="kid" href="#"><svg class="i"><use href="#i-bubble"/></svg><span>Corriger crash RAM et</span><svg class="i trash"><use href="#i-trash"/></svg></a>
-                </div>
-              </div>
-
-              <a class="item legacy" href="#"><svg class="i"><use href="#i-clock"/></svg><span>Legacy</span></a>
-            </div>
-
-            <div class="drawer-foot">
-              <a class="item" href="#"><svg class="i"><use href="#i-gift"/></svg><span>Invite friends</span><em class="count">0/3</em></a>
-              <div class="streak">
-                <span class="fire">🔥</span><span>1-day streak</span>
-                <span class="bars"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="homebar"></div>
+      <button class="tab-new" aria-label="Nouvel onglet"><svg class="i"><use href="#i-plus"/></svg></button>
     </div>
-    <figcaption>Tiroir latéral — projets et discussions</figcaption>
-  </figure>
+  </header>
 
-  <!-- ================= ÉCRAN 3 — TERMINAL ================= -->
-  <figure class="frame">
-    <div class="phone">
-      <div class="statusbar">
-        <span class="clock">06:22</span>
-        <span class="status-right">
-          <svg class="i st"><use href="#i-signal"/></svg>
-          <svg class="i st wifi"><use href="#i-wifi"/></svg>
-          <span class="batt"><span class="batt-fill"></span></span>
-          <span class="pct">51</span>
-        </span>
+  <div class="main">
+    <nav class="rail">
+      <button class="rail-btn active" data-drawer aria-label="Accueil"><svg class="i"><use href="#i-home"/></svg></button>
+      <button class="rail-btn" aria-label="Projets"><svg class="i"><use href="#i-grid"/></svg></button>
+      <button class="rail-btn" data-terminal aria-label="Panneaux"><svg class="i"><use href="#i-layout"/></svg></button>
+      <button class="rail-btn" aria-label="Réglages"><svg class="i"><use href="#i-gear"/></svg></button>
+      <button class="rail-btn" aria-label="Inviter"><svg class="i"><use href="#i-gift"/></svg></button>
+
+      <div class="rail-bottom">
+        <button class="rail-btn sm" aria-label="Aide"><svg class="i"><use href="#i-help"/></svg></button>
+        <span class="avatar">A</span>
       </div>
+    </nav>
 
-      <div class="chrome">
-        <svg class="i chrome-ic"><use href="#i-home"/></svg>
-        <div class="omni"><span>freebuff.com/?thread=d5f37764-c</span></div>
-        <svg class="i chrome-ic"><use href="#i-star"/></svg>
-        <span class="tabcount"><svg class="i"><use href="#i-tabcount"/></svg><b>1</b></span>
-        <svg class="i chrome-ic"><use href="#i-kebab"/></svg>
-      </div>
-
-      <div class="app">
-        <div class="apphead">
-          <div class="seg">
-            <span class="on">Code</span>
-            <span>Chat</span>
+    <section class="pane">
+      <div class="feed">
+        <div class="card notice">
+          <div class="notice-head">
+            <svg class="i"><use href="#i-code-pane"/></svg>
+            <div class="notice-tools">
+              <svg class="i"><use href="#i-list"/></svg>
+              <svg class="i"><use href="#i-image"/></svg>
+              <svg class="i"><use href="#i-folder"/></svg>
+              <button class="raw" data-drawer aria-label="Tiroir"><svg class="i"><use href="#i-sidebar"/></svg></button>
+            </div>
           </div>
-          <div class="tabstrip">
-            <div class="tab on"><span class="tlabel">Clone w</span><svg class="i x"><use href="#i-x"/></svg></div>
-            <div class="tab"><span class="tlabel">New ch</span><svg class="i x"><use href="#i-x"/></svg></div>
-            <div class="tab"><span class="tlabel">Correct</span><svg class="i x"><use href="#i-x"/></svg></div>
-            <button class="tabnew" aria-label="Nouvel onglet"><svg class="i"><use href="#i-plus"/></svg></button>
+          <div class="notice-body">
+            <svg class="i info"><use href="#i-info"/></svg>
+            <p>Cloud runner restarted. Completed steps are saved; send a message to continue.</p>
           </div>
         </div>
 
-        <div class="body">
-          <nav class="rail">
-            <a class="railbtn act" href="#"><svg class="i"><use href="#i-home"/></svg></a>
-            <a class="railbtn" href="#"><svg class="i"><use href="#i-grid"/></svg></a>
-            <a class="railbtn" href="#"><svg class="i"><use href="#i-layout"/></svg></a>
-            <a class="railbtn" href="#"><svg class="i"><use href="#i-gear"/></svg></a>
-            <a class="railbtn" href="#"><svg class="i"><use href="#i-gift"/></svg></a>
-            <div class="rail-bottom">
-              <a class="railbtn sm" href="#"><svg class="i"><use href="#i-help"/></svg></a>
-              <span class="avatar">A</span>
-            </div>
-          </nav>
+        <div class="date">dim. 8 nov. at 19:09</div>
 
-          <section class="pane">
-            <div class="pane-head">
-              <svg class="i"><use href="#i-code-pane"/></svg>
-              <span class="head-text">High ⌄», micro, bouton d'envoi vert</span>
-              <span class="head-tools">
-                <svg class="i"><use href="#i-list"/></svg>
-                <span class="tool-pill"><svg class="i"><use href="#i-image"/></svg></span>
-                <svg class="i"><use href="#i-folder"/></svg>
-                <svg class="i"><use href="#i-sidebar"/></svg>
-              </span>
-            </div>
+        <div class="bubble">
+          <p>Clone ferelking242/watchtower ensuite tu va fix lapp bug crash calll ram nest pas rapide ni optimise cest une vrai merde trouve la cause profonde tout lapp est dunne lwntwur et calle tro soit cest trop de get mal fait reflechi a tout ca et au paralelisme et push sur mian pas de pr avec ce pat ghp_•••••••••••••••••••••••</p>
+          <div class="actions">
+            <svg class="i"><use href="#i-pencil"/></svg>
+            <svg class="i"><use href="#i-undo"/></svg>
+            <svg class="i"><use href="#i-copy"/></svg>
+          </div>
+        </div>
 
-            <div class="scroll">
-              <ul class="bullets">
-                <li>dock du bas + barre home</li>
-              </ul>
-              <p class="assistant">Vérifié : le workflow GitHub Actions passe au vert, la page et le CSS répondent en <span class="code">200</span> sur l'URL Pages, et le serveur local tourne (aperçu ouvert dans le panneau Browser). Je n'ai pas ouvert de navigateur pour comparer visuellement côté à côté avec ta capture — dis-moi si tu veux que je fasse un ajustement de détail (espacement, teinte de vert, taille de police).</p>
-              <p class="assistant">Deux points importants :</p>
-              <ul class="bullets">
-                <li>Le PAT que tu as collé est maintenant exposé publiquement : révoque-le et régénère-en un (je l'ai utilisé une fois puis supprimé du stockage).</li>
-              </ul>
+        <div class="worked">Worked for 15m 44s <svg class="i"><use href="#i-chev-r"/></svg></div>
 
-              <div class="bubble attach">
-                <p>Je tai dis de reproduire pixel perfect ta mal fait</p>
-                <div class="thumb">
-                  <span class="thumb-text">grep -rn "pixel" src<br/>ui/freebuff_mobile.dart<br/>Icon(Icons.chevron_right)<br/>import 'package:flutter/…</span>
-                  <span class="thumb-x"><svg class="i"><use href="#i-x"/></svg></span>
-                </div>
-              </div>
+        <p class="assistant">Je commence par provisionner l'environnement de travail, puis je clone le dépôt pour inspecter le code.</p>
 
-              <div class="composer">
-                <div class="modes"><span class="on">Build</span><span>Plan</span><span>Mission</span><span>Skills</span></div>
-                <div class="composer-bar">
-                  <button class="ghost" aria-label="Ajouter"><svg class="i"><use href="#i-plus"/></svg></button>
-                  <div class="model">DeepSeek V4.1 Flash&nbsp; High <svg class="i"><use href="#i-chev-d"/></svg></div>
-                  <button class="mic" aria-label="Micro"><svg class="i"><use href="#i-mic"/></svg></button>
-                  <button class="send" aria-label="Envoyer"><svg class="i"><use href="#i-arrow-up"/></svg></button>
-                </div>
-              </div>
-            </div>
+        <div class="card error">
+          <svg class="i info"><use href="#i-info"/></svg>
+          <p>Cloud run stopped on an unexpected error. Completed steps are saved; send a message to try again.</p>
+          <button class="retry">Retry</button>
+        </div>
 
-            <div class="terminal">
-              <div class="term-head">
-                <svg class="i"><use href="#i-terminal"/></svg>
-                <span>Terminal</span>
-                <svg class="i x"><use href="#i-x"/></svg>
-                <span class="term-tools">
-                  <svg class="i"><use href="#i-plus"/></svg>
-                  <svg class="i"><use href="#i-sidebar"/></svg>
-                </span>
-              </div>
-              <div class="term-body"><div class="term-input">Connecting terminal...</div></div>
-            </div>
-          </section>
+        <div class="feedback">
+          <svg class="i"><use href="#i-bubble"/></svg>
+          <svg class="i"><use href="#i-thumb"/></svg>
+          <svg class="i down"><use href="#i-thumb"/></svg>
+          <svg class="i"><use href="#i-copy"/></svg>
         </div>
       </div>
 
-      <div class="homebar"></div>
+      <div class="composer">
+        <div class="field">Ask Freebuff... Use / for commands, @ for files</div>
+
+        <div class="modes">
+          <button class="on">Build</button>
+          <button>Plan</button>
+          <button>Mission</button>
+          <button>Skills</button>
+        </div>
+
+        <div class="composer-row">
+          <button class="ghost" aria-label="Joindre"><svg class="i"><use href="#i-plus"/></svg></button>
+          <button class="model">DeepSeek V4.1 Flash&nbsp; High <svg class="i"><use href="#i-chev-d"/></svg></button>
+          <button class="mic" aria-label="Micro"><svg class="i"><use href="#i-mic"/></svg></button>
+          <button class="send" aria-label="Envoyer"><svg class="i"><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+
+      <div class="terminal" id="terminal" hidden>
+        <div class="term-head">
+          <svg class="i"><use href="#i-terminal"/></svg>
+          <span>Terminal</span>
+          <svg class="i x" data-terminal><use href="#i-x"/></svg>
+          <div class="term-tools">
+            <svg class="i"><use href="#i-plus"/></svg>
+            <svg class="i"><use href="#i-sidebar"/></svg>
+          </div>
+        </div>
+        <div class="term-body"><div class="term-input">Connecting terminal...</div></div>
+      </div>
+    </section>
+
+    <div class="scrim" id="scrim" hidden></div>
+
+    <aside class="drawer" id="drawer" hidden>
+      <div class="drawer-head">
+        <span class="logo">Freebuff</span>
+        <div class="drawer-tools">
+          <svg class="i"><use href="#i-search"/></svg>
+          <svg class="i"><use href="#i-sidebar"/></svg>
+        </div>
+      </div>
+
+      <div class="drawer-scroll">
+        <button class="item"><svg class="i"><use href="#i-newchat"/></svg><span>New chat</span></button>
+        <button class="item"><svg class="i"><use href="#i-newproj"/></svg><span>New project</span></button>
+        <button class="item"><svg class="i"><use href="#i-hourglass"/></svg><span>Daily hours</span><em class="badge">3:00</em></button>
+        <button class="item"><svg class="i"><use href="#i-trend"/></svg><span>Get 7x usage for $8</span></button>
+
+        <div class="section"><span>Projects</span><span class="section-tools"><svg class="i"><use href="#i-folder"/></svg><svg class="i"><use href="#i-chev-d"/></svg></span></div>
+
+        <div class="project-head">
+          <svg class="i"><use href="#i-folder"/></svg>
+          <span>Tu Va Clone</span>
+          <svg class="i mini"><use href="#i-dots"/></svg>
+          <svg class="i mini"><use href="#i-newchat"/></svg>
+        </div>
+
+        <button class="thread"><svg class="i"><use href="#i-bubble"/></svg><span>New chat</span></button>
+        <button class="thread"><svg class="i"><use href="#i-bubble"/></svg><span>Corrections lecteur W</span><svg class="i trash"><use href="#i-trash"/></svg></button>
+        <button class="thread active"><svg class="i"><use href="#i-bubble"/></svg><span>Clone vocali tu</span><i class="live"></i><svg class="i trash"><use href="#i-trash"/></svg></button>
+        <button class="thread"><svg class="i"><use href="#i-bubble"/></svg><span>Optimisation De Watc</span><svg class="i trash"><use href="#i-trash"/></svg></button>
+        <button class="thread"><svg class="i"><use href="#i-bubble"/></svg><span>Corriger crash RAM et</span><svg class="i trash"><use href="#i-trash"/></svg></button>
+
+        <button class="item legacy"><svg class="i"><use href="#i-clock"/></svg><span>Legacy</span></button>
+      </div>
+
+      <div class="drawer-foot">
+        <button class="item"><svg class="i"><use href="#i-gift"/></svg><span>Invite friends</span><em class="count">0/3</em></button>
+        <div class="streak">
+          <span>🔥</span><span>1-day streak</span>
+          <span class="bars"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></span>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer class="dock">
+    <svg class="i chev"><use href="#i-chev-u"/></svg>
+    <div class="dots">
+      <span class="dot"><svg class="i"><use href="#i-bubble"/></svg></span>
+      <span class="dot"><svg class="i"><use href="#i-bubble"/></svg></span>
+      <span class="dot on"><svg class="i"><use href="#i-bubble"/></svg><i class="ping"></i></span>
+      <span class="dot"><svg class="i"><use href="#i-bubble"/></svg></span>
+      <span class="dot"><svg class="i"><use href="#i-bubble"/></svg></span>
+      <span class="dot"><svg class="i"><use href="#i-bubble"/></svg></span>
+      <span class="dot plus">+</span>
     </div>
-    <figcaption>Chat + panneau Terminal</figcaption>
-  </figure>
+  </footer>
+</div>
 
-</main>
+<script>
+  const drawer = document.getElementById('drawer');
+  const scrim = document.getElementById('scrim');
+  const terminal = document.getElementById('terminal');
+
+  function toggleDrawer() {
+    const open = drawer.hasAttribute('hidden');
+    drawer.toggleAttribute('hidden', !open);
+    scrim.toggleAttribute('hidden', !open);
+  }
+  function toggleTerminal() {
+    terminal.toggleAttribute('hidden');
+  }
+
+  document.querySelectorAll('[data-drawer]').forEach(b => b.addEventListener('click', toggleDrawer));
+  document.querySelectorAll('[data-terminal]').forEach(b => b.addEventListener('click', toggleTerminal));
+  scrim.addEventListener('click', toggleDrawer);
+</script>
 </body>
 </html>
