@@ -44,102 +44,60 @@
   <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6"/><path d="M12 7.3V12l3.1 1.9"/></symbol>
   <symbol id="i-dots" viewBox="0 0 24 24"><path d="M6.2 12v.01M12 12v.01M17.8 12v.01" stroke-width="2.6"/></symbol>
   <symbol id="i-terminal" viewBox="0 0 24 24"><rect x="3.3" y="4.5" width="17.4" height="15" rx="2.6"/><path d="m7.4 9.3 2.6 2.6-2.6 2.6M12.8 14.9h4.2"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5.5 12.6 4.2 4.2 8.8-8.8"/></symbol>
+  <symbol id="i-paperclip" viewBox="0 0 24 24"><path d="M20 11.4 12.3 19a4.4 4.4 0 0 1-6.2-6.2l7.4-7.4a3 3 0 0 1 4.3 4.3l-7.4 7.4a1.6 1.6 0 0 1-2.2-2.2l6.8-6.8"/></symbol>
 </svg>
 
 <!-- ======================= APPLICATION ======================= -->
 <div class="app">
 
   <header class="topbar">
-    <div class="seg">
-      <button class="on">Code</button>
-      <button>Chat</button>
+    <div class="seg" id="seg">
+      <button class="on" data-mode="Code">Code</button>
+      <button data-mode="Chat">Chat</button>
     </div>
-
-    <div class="tabs">
-      <div class="tab on">
-        <span>Corriger crash RAM et le</span>
-        <svg class="i x"><use href="#i-x"/></svg>
-      </div>
-      <button class="tab-new" aria-label="Nouvel onglet"><svg class="i"><use href="#i-plus"/></svg></button>
-    </div>
+    <div class="tabs" id="tabs"></div>
+    <button class="tab-new" id="newTab" title="Nouvel onglet"><svg class="i"><use href="#i-plus"/></svg></button>
   </header>
 
   <div class="main">
     <nav class="rail">
-      <button class="rail-btn active" data-drawer aria-label="Accueil"><svg class="i"><use href="#i-home"/></svg></button>
-      <button class="rail-btn" aria-label="Projets"><svg class="i"><use href="#i-grid"/></svg></button>
-      <button class="rail-btn" data-terminal aria-label="Panneaux"><svg class="i"><use href="#i-layout"/></svg></button>
-      <button class="rail-btn" aria-label="Réglages"><svg class="i"><use href="#i-gear"/></svg></button>
-      <button class="rail-btn" aria-label="Inviter"><svg class="i"><use href="#i-gift"/></svg></button>
+      <button class="rail-btn active" id="railHome" title="Accueil"><svg class="i"><use href="#i-home"/></svg></button>
+      <button class="rail-btn" id="railProjects" title="Projets"><svg class="i"><use href="#i-grid"/></svg></button>
+      <button class="rail-btn" id="railPanels" title="Panneaux"><svg class="i"><use href="#i-layout"/></svg></button>
+      <button class="rail-btn" id="railSettings" title="Réglages"><svg class="i"><use href="#i-gear"/></svg></button>
+      <button class="rail-btn" id="railGift" title="Inviter"><svg class="i"><use href="#i-gift"/></svg></button>
 
       <div class="rail-bottom">
-        <button class="rail-btn sm" aria-label="Aide"><svg class="i"><use href="#i-help"/></svg></button>
-        <span class="avatar">A</span>
+        <button class="rail-btn sm" id="railHelp" title="Aide"><svg class="i"><use href="#i-help"/></svg></button>
+        <button class="avatar" id="avatar" title="Compte">A</button>
       </div>
     </nav>
 
     <section class="pane">
-      <div class="feed">
-        <div class="card notice">
-          <div class="notice-head">
-            <svg class="i"><use href="#i-code-pane"/></svg>
-            <div class="notice-tools">
-              <svg class="i"><use href="#i-list"/></svg>
-              <svg class="i"><use href="#i-image"/></svg>
-              <svg class="i"><use href="#i-folder"/></svg>
-              <button class="raw" data-drawer aria-label="Tiroir"><svg class="i"><use href="#i-sidebar"/></svg></button>
-            </div>
-          </div>
-          <div class="notice-body">
-            <svg class="i info"><use href="#i-info"/></svg>
-            <p>Cloud runner restarted. Completed steps are saved; send a message to continue.</p>
-          </div>
-        </div>
-
-        <div class="date">dim. 8 nov. at 19:09</div>
-
-        <div class="bubble">
-          <p>Clone ferelking242/watchtower ensuite tu va fix lapp bug crash calll ram nest pas rapide ni optimise cest une vrai merde trouve la cause profonde tout lapp est dunne lwntwur et calle tro soit cest trop de get mal fait reflechi a tout ca et au paralelisme et push sur mian pas de pr avec ce pat ghp_•••••••••••••••••••••••</p>
-          <div class="actions">
-            <svg class="i"><use href="#i-pencil"/></svg>
-            <svg class="i"><use href="#i-undo"/></svg>
-            <svg class="i"><use href="#i-copy"/></svg>
-          </div>
-        </div>
-
-        <div class="worked">Worked for 15m 44s <svg class="i"><use href="#i-chev-r"/></svg></div>
-
-        <p class="assistant">Je commence par provisionner l'environnement de travail, puis je clone le dépôt pour inspecter le code.</p>
-
-        <div class="card error">
-          <svg class="i info"><use href="#i-info"/></svg>
-          <p>Cloud run stopped on an unexpected error. Completed steps are saved; send a message to try again.</p>
-          <button class="retry">Retry</button>
-        </div>
-
-        <div class="feedback">
-          <svg class="i"><use href="#i-bubble"/></svg>
-          <svg class="i"><use href="#i-thumb"/></svg>
-          <svg class="i down"><use href="#i-thumb"/></svg>
-          <svg class="i"><use href="#i-copy"/></svg>
-        </div>
-      </div>
+      <div class="feed" id="feed"></div>
 
       <div class="composer">
-        <div class="field">Ask Freebuff... Use / for commands, @ for files</div>
+        <div class="chips" id="chips" hidden></div>
+        <textarea class="field" id="input" rows="1" placeholder="Ask Freebuff... Use / for commands, @ for files"></textarea>
 
-        <div class="modes">
-          <button class="on">Build</button>
-          <button>Plan</button>
-          <button>Mission</button>
-          <button>Skills</button>
+        <div class="modes" id="modes">
+          <button class="on" data-mode="Build">Build</button>
+          <button data-mode="Plan">Plan</button>
+          <button data-mode="Mission">Mission</button>
+          <button data-mode="Skills">Skills</button>
         </div>
 
         <div class="composer-row">
-          <button class="ghost" aria-label="Joindre"><svg class="i"><use href="#i-plus"/></svg></button>
-          <button class="model">DeepSeek V4.1 Flash&nbsp; High <svg class="i"><use href="#i-chev-d"/></svg></button>
-          <button class="mic" aria-label="Micro"><svg class="i"><use href="#i-mic"/></svg></button>
-          <button class="send" aria-label="Envoyer"><svg class="i"><use href="#i-arrow-up"/></svg></button>
+          <button class="ghost" id="attach" title="Joindre un fichier"><svg class="i"><use href="#i-plus"/></svg></button>
+          <input type="file" id="file" multiple hidden />
+          <button class="model" id="modelBtn" title="Choisir le modèle">
+            <span id="modelName">DeepSeek V4.1 Flash</span>
+            <em id="modelEffort">High</em>
+            <svg class="i"><use href="#i-chev-d"/></svg>
+          </button>
+          <button class="mic" id="mic" title="Dicter"><svg class="i"><use href="#i-mic"/></svg></button>
+          <button class="send" id="send" title="Envoyer" disabled><svg class="i"><use href="#i-arrow-up"/></svg></button>
         </div>
       </div>
 
@@ -147,13 +105,19 @@
         <div class="term-head">
           <svg class="i"><use href="#i-terminal"/></svg>
           <span>Terminal</span>
-          <svg class="i x" data-terminal><use href="#i-x"/></svg>
+          <button class="raw" id="termClose" title="Fermer"><svg class="i x"><use href="#i-x"/></svg></button>
           <div class="term-tools">
-            <svg class="i"><use href="#i-plus"/></svg>
-            <svg class="i"><use href="#i-sidebar"/></svg>
+            <button class="raw" id="termNew" title="Nouveau terminal"><svg class="i"><use href="#i-plus"/></svg></button>
+            <button class="raw" id="termSide" title="Panneaux"><svg class="i"><use href="#i-sidebar"/></svg></button>
           </div>
         </div>
-        <div class="term-body"><div class="term-input">Connecting terminal...</div></div>
+        <div class="term-body">
+          <div class="term-out" id="termOut"></div>
+          <form class="term-input-wrap" id="termForm">
+            <span>$</span>
+            <input id="termInput" autocomplete="off" spellcheck="false" placeholder="Commande (help)" />
+          </form>
+        </div>
       </div>
     </section>
 
@@ -163,76 +127,50 @@
       <div class="drawer-head">
         <span class="logo">Freebuff</span>
         <div class="drawer-tools">
-          <svg class="i"><use href="#i-search"/></svg>
-          <svg class="i"><use href="#i-sidebar"/></svg>
+          <button class="raw" id="drawerSearch" title="Rechercher"><svg class="i"><use href="#i-search"/></svg></button>
+          <button class="raw" id="drawerClose" title="Fermer"><svg class="i"><use href="#i-sidebar"/></svg></button>
         </div>
       </div>
 
-      <div class="drawer-scroll">
-        <button class="item"><svg class="i"><use href="#i-newchat"/></svg><span>New chat</span></button>
-        <button class="item"><svg class="i"><use href="#i-newproj"/></svg><span>New project</span></button>
-        <button class="item"><svg class="i"><use href="#i-hourglass"/></svg><span>Daily hours</span><em class="badge">3:00</em></button>
-        <button class="item"><svg class="i"><use href="#i-trend"/></svg><span>Get 7x usage for $8</span></button>
+      <div class="drawer-scroll" id="drawerScroll">
+        <button class="item" id="newChat"><svg class="i"><use href="#i-newchat"/></svg><span>New chat</span></button>
+        <button class="item" id="newProject"><svg class="i"><use href="#i-newproj"/></svg><span>New project</span></button>
+        <button class="item" id="dailyHours"><svg class="i"><use href="#i-hourglass"/></svg><span>Daily hours</span><em class="badge" id="hoursBadge">3:00</em></button>
+        <button class="item" id="getUsage"><svg class="i"><use href="#i-trend"/></svg><span>Get 7x usage for $8</span></button>
 
-        <div class="section"><span>Projects</span><span class="section-tools"><svg class="i"><use href="#i-folder"/></svg><svg class="i"><use href="#i-chev-d"/></svg></span></div>
+        <div class="section" id="projectsSection">
+          <span>Projects</span>
+          <span class="section-tools"><svg class="i"><use href="#i-folder"/></svg><svg class="i"><use href="#i-chev-d"/></svg></span>
+        </div>
 
         <div class="project-head">
           <svg class="i"><use href="#i-folder"/></svg>
-          <span>Tu Va Clone</span>
-          <svg class="i mini"><use href="#i-dots"/></svg>
-          <svg class="i mini"><use href="#i-newchat"/></svg>
+          <span id="projectName">Tu Va Clone</span>
+          <button class="raw" id="projectMenu" title="Options du projet"><svg class="i mini"><use href="#i-dots"/></svg></button>
+          <button class="raw" id="projectNew" title="Discussion dans ce projet"><svg class="i mini"><use href="#i-newchat"/></svg></button>
         </div>
 
-        <button class="thread"><svg class="i"><use href="#i-bubble"/></svg><span>New chat</span></button>
-        <button class="thread"><svg class="i"><use href="#i-bubble"/></svg><span>Corrections lecteur W</span><svg class="i trash"><use href="#i-trash"/></svg></button>
-        <button class="thread active"><svg class="i"><use href="#i-bubble"/></svg><span>Clone vocali tu</span><i class="live"></i><svg class="i trash"><use href="#i-trash"/></svg></button>
-        <button class="thread"><svg class="i"><use href="#i-bubble"/></svg><span>Optimisation De Watc</span><svg class="i trash"><use href="#i-trash"/></svg></button>
-        <button class="thread"><svg class="i"><use href="#i-bubble"/></svg><span>Corriger crash RAM et</span><svg class="i trash"><use href="#i-trash"/></svg></button>
+        <div id="threadList"></div>
 
-        <button class="item legacy"><svg class="i"><use href="#i-clock"/></svg><span>Legacy</span></button>
+        <button class="item legacy" id="legacyBtn"><svg class="i"><use href="#i-clock"/></svg><span>Legacy</span></button>
       </div>
 
       <div class="drawer-foot">
-        <button class="item"><svg class="i"><use href="#i-gift"/></svg><span>Invite friends</span><em class="count">0/3</em></button>
-        <div class="streak">
+        <button class="item" id="invite"><svg class="i"><use href="#i-gift"/></svg><span>Invite friends</span><em class="count">0/3</em></button>
+        <button class="streak" id="streakBtn">
           <span>🔥</span><span>1-day streak</span>
           <span class="bars"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></span>
-        </div>
+        </button>
       </div>
     </aside>
   </div>
-
-  <footer class="dock">
-    <svg class="i chev"><use href="#i-chev-u"/></svg>
-    <div class="dots">
-      <span class="dot"><svg class="i"><use href="#i-bubble"/></svg></span>
-      <span class="dot"><svg class="i"><use href="#i-bubble"/></svg></span>
-      <span class="dot on"><svg class="i"><use href="#i-bubble"/></svg><i class="ping"></i></span>
-      <span class="dot"><svg class="i"><use href="#i-bubble"/></svg></span>
-      <span class="dot"><svg class="i"><use href="#i-bubble"/></svg></span>
-      <span class="dot"><svg class="i"><use href="#i-bubble"/></svg></span>
-      <span class="dot plus">+</span>
-    </div>
-  </footer>
 </div>
 
-<script>
-  const drawer = document.getElementById('drawer');
-  const scrim = document.getElementById('scrim');
-  const terminal = document.getElementById('terminal');
+<div class="sheet-scrim" id="sheet" hidden>
+  <div class="sheet" id="sheetPanel" role="dialog" aria-modal="true"></div>
+</div>
+<div class="toast" id="toast" hidden></div>
 
-  function toggleDrawer() {
-    const open = drawer.hasAttribute('hidden');
-    drawer.toggleAttribute('hidden', !open);
-    scrim.toggleAttribute('hidden', !open);
-  }
-  function toggleTerminal() {
-    terminal.toggleAttribute('hidden');
-  }
-
-  document.querySelectorAll('[data-drawer]').forEach(b => b.addEventListener('click', toggleDrawer));
-  document.querySelectorAll('[data-terminal]').forEach(b => b.addEventListener('click', toggleTerminal));
-  scrim.addEventListener('click', toggleDrawer);
-</script>
+<script src="app.js"></script>
 </body>
 </html>
