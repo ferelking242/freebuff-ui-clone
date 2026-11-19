@@ -248,7 +248,7 @@ svg{display:block}
 .mode.active{background:var(--green);color:var(--green-ink);font-weight:600}
 
 .composer-bar{display:flex;align-items:center;gap:6px}
-.plus{width:24px;height:24px;display:grid;place-items:center;color:#aeaaea;color:#b2b2b2;flex:0 0 auto}
+.plus{width:24px;height:24px;display:grid;place-items:center;color:#b2b2b2;flex:0 0 auto}
 .plus svg{width:17px;height:17px}
 .model{
   margin:0 auto;
